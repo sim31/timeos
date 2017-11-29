@@ -5,33 +5,24 @@
     }
   ],
   "structs": [{
-      "name": "transfer",
-      "base": "",
+      "name": "table_type"
+      "base": ""
       "fields": {
-        "from": "account_name",
-        "to": "account_name",
-        "amount": "UInt64"
+        "value": "string",
+        "test_value": "string"
       }
-    },{
-      "name": "account",
-      "base": "",
-      "fields": {
-        "account": "name",
-        "balance": "UInt64"
-      }
-    }
-  ],
+  }],
   "actions": [{
-      "action": "transfer",
-      "type": "transfer"
+      "action_name": "save",
+      "type": "string"
     }
   ],
   "tables": [{
-      "table": "account",
-      "type": "account",
-      "indextype": "i64",
-      "keynames" : ["account"],
-      "keytypes" : ["name"]
+      "table_name": "timestamps",
+      "type": "table_type",
+      "index_type": "str",
+      "key_names" : ["value"],
+      "key_types" : ["string"]
     }
   ]
 }

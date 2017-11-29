@@ -1,8 +1,7 @@
-/**
- *  @file
- *  @copyright defined in eos/LICENSE.txt
- */
+#pragma once
 #include <eoslib/eos.hpp>
-#include <eoslib/db.hpp>
+
+#define CONTRACT_NAME timeos
+#define CONTRACT_CODE N(timeos)
 
 
