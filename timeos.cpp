@@ -13,10 +13,9 @@ void store_str() {
     auto size = message_size();
     char str[size];
     read_message(str, size);
-    char* test_val = "test value";
-    auto test_val_size = eosio::cstrlen(test_val);
+    int64_t test_val = 10;
 
-    ::store_str(CONTRACT_CODE, N(timestamps), str, size, test_val, test_val_size);
+    ::store_str(CONTRACT_CODE, N(timestamps), str, size, (char*)&test_val, sizeof (int64_t));
 }
 }
 

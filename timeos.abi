@@ -9,7 +9,7 @@
       "base": ""
       "fields": {
         "value": "string",
-        "test_value": "string"
+        "test_value": "int64"
       }
   }],
   "actions": [{
