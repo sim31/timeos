@@ -8,14 +8,21 @@
 
 namespace CONTRACT_NAME {
 
-void store_str() {
-    eosio::print("store_str called");
-    auto size = message_size();
-    char str[size];
-    read_message(str, size);
-    int64_t test_val = 10;
+// Store data packed the same way as the eosio::abi_serializer does
+// into single string index table.
+void store_packed_str(uint64_t scope, uint64_t table, char* data, uint32_t size) {
+    uint32_t keylen = data[0];
+    char* key = data + 1;
+    uint32_t valuelen = size - keylen - 1;
+    char* value = data + (size - valuelen);
 
-    ::store_str(CONTRACT_CODE, N(timestamps), str, size, (char*)&test_val, sizeof (int64_t));
+    eosio::print("keylen= ", keylen, ", valuelen= ", valuelen);
+//    char* test_val = "\t123456789";
+//    auto test_val_size = eosio::cstrlen(test_val);
+//    eosio::print("test_val_size = ", test_val_size);
+
+    ::store_str(scope, table, key, keylen, value, valuelen);
+
 }
 }
 
@@ -38,7 +45,10 @@ void apply( uint64_t code, uint64_t action ) {
     if (code == CONTRACT_CODE) {
         eosio::print("code is contract name");
         if (action == N(save)) {
-            store_str();
+            auto size = message_size();
+            char buff[size];
+            read_message(buff, size);
+            store_packed_str(CONTRACT_CODE, N(timestamps), buff, size);
         }
     }
 }

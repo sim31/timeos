@@ -9,12 +9,12 @@
       "base": ""
       "fields": {
         "value": "string",
-        "test_value": "int64"
+        "test_value": "string"
       }
   }],
   "actions": [{
       "action_name": "save",
-      "type": "string"
+      "type": "table_type"
     }
   ],
   "tables": [{
