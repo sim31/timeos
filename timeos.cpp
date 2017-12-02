@@ -3,25 +3,20 @@
  *  @copyright defined in eos/LICENSE.txt
  */
 #include <timeos.hpp>
+#include <timeos.gen.hpp>
 #include <eoslib/db.hpp>
 #include <eoslib/string.hpp>
 
 namespace CONTRACT_NAME {
 
-// Store data packed the same way as the eosio::abi_serializer does
-// into single string index table.
-void store_packed_str(uint64_t scope, uint64_t table, char* data, uint32_t size) {
-    uint32_t keylen = data[0];
-    char* key = data + 1;
-    uint32_t valuelen = size - keylen - 1;
-    char* value = data + (size - valuelen);
-
-    eosio::print("keylen= ", keylen, ", valuelen= ", valuelen);
-//    char* test_val = "\t123456789";
-//    auto test_val_size = eosio::cstrlen(test_val);
-//    eosio::print("test_val_size = ", test_val_size);
-
-    ::store_str(scope, table, key, keylen, value, valuelen);
+void store_key_val(uint64_t scope, uint64_t table, const key_val& keyval) {
+  eosio::print("Inserting key_val:\n");
+  eosio::dump(keyval);
+  bytes key = eosio::raw::pack(keyval.key);
+  bytes val = eosio::raw::pack(keyval.value);
+  eosio::print("keylen: ", key.len, "val.len: ", val.len, "\n");
+  //::store_str(scope, table, (char*)key.data, key.len, (char*)val.data, val.len);
+  ::store_str(scope, table, (char*)keyval.key.get_data(), keyval.key.get_size(), (char*)val.data, val.len);
 
 }
 }
@@ -42,13 +37,11 @@ void init()  {
 
 /// The apply method implements the dispatch of events to this contract
 void apply( uint64_t code, uint64_t action ) {
-    if (code == CONTRACT_CODE) {
+    if (code == CONTRACT_NAME_UINT64) {
         eosio::print("code is contract name");
-        if (action == N(save)) {
-            auto size = message_size();
-            char buff[size];
-            read_message(buff, size);
-            store_packed_str(CONTRACT_CODE, N(timestamps), buff, size);
+        if (action == N(savekeyval)) {
+            key_val kv = eosio::current_message<key_val>();
+            store_key_val(CONTRACT_NAME_UINT64, N(keyval), kv);
         }
     }
 }

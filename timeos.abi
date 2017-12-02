@@ -1,28 +1,29 @@
 {
-  "types": [{
-      "newTypeName": "account_name",
-      "type": "name"
+  "types": [],
+  "structs": [{
+      "name": "key_val",
+      "base": "",
+      "fields": {
+        "key": "string",
+        "value": "string"
+      }
     }
   ],
-  "structs": [{
-      "name": "table_type"
-      "base": ""
-      "fields": {
-        "value": "string",
-        "test_value": "string"
-      }
-  }],
   "actions": [{
-      "action_name": "save",
-      "type": "table_type"
+      "action_name": "savekeyval",
+      "type": "key_val"
     }
   ],
   "tables": [{
-      "table_name": "timestamps",
-      "type": "table_type",
+      "table_name": "keyval",
       "index_type": "str",
-      "key_names" : ["value"],
-      "key_types" : ["string"]
+      "key_names": [
+        "key"
+      ],
+      "key_types": [
+        "string"
+      ],
+      "type": "key_val"
     }
   ]
 }
