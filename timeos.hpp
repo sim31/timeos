@@ -16,13 +16,14 @@ namespace CONTRACT_NAME {
 
   //@abi table str
   struct timestamp {
-    eosio::string key;
-    time          value;
+    eosio::string data;
+    time          date;
 
-    timestamp(const eosio::string& data, time date) : key(data), value(date) {}
+    timestamp() {}
+    timestamp(const eosio::string& data, time date) : data(data), date(date) {}
     //Create timestamp with time from previous block
-    timestamp(const timestamp_order& order) : key(order.data) {
-      value = now();
+    timestamp(const timestamp_order& order) : data(order.data) {
+      date = now();
     }
   };
 

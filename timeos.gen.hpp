@@ -3,6 +3,9 @@
 #include <eoslib/message.hpp>
 #include <eoslib/datastream.hpp>
 #include <eoslib/raw_fwd.hpp>
+#include "timeos.hpp"
+
+using namespace CONTRACT_NAME;
 
 namespace eosio { namespace raw {
    template<typename Stream> inline void pack( Stream& s, const timestamp_order& value ) {
@@ -14,12 +17,12 @@ namespace eosio { namespace raw {
       raw::unpack(s, value.owner);
    }
    template<typename Stream> inline void pack( Stream& s, const timestamp& value ) {
-      raw::pack(s, value.key);
-      raw::pack(s, value.value);
+      raw::pack(s, value.data);
+      raw::pack(s, value.date);
    }
    template<typename Stream> inline void unpack( Stream& s, timestamp& value ) {
-      raw::unpack(s, value.key);
-      raw::unpack(s, value.value);
+      raw::unpack(s, value.data);
+      raw::unpack(s, value.date);
    }
 } }
 
@@ -45,8 +48,8 @@ namespace eosio {
       return current_message_ex<timestamp_order>();
    }
    void dump(const timestamp& value, int tab=0) {
-      print_ident(tab);print("key:[");prints_l(value.key.get_data(), value.key.get_size());print("]\n");
-      print_ident(tab);print("value:[");printi(value.value);print("]\n");
+      print_ident(tab);print("key:[");prints_l(value.data.get_data(), value.data.get_size());print("]\n");
+      print_ident(tab);print("value:[");printi(value.date);print("]\n");
    }
    template<>
    timestamp current_message<timestamp>() {

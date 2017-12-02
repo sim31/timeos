@@ -11,8 +11,8 @@
       "name": "timestamp",
       "base": "",
       "fields": {
-        "key": "string",
-        "value": "time"
+        "data": "string",
+        "date": "time"
       }
     }
   ],
@@ -25,7 +25,7 @@
       "table_name": "timestamp",
       "index_type": "str",
       "key_names": [
-        "key"
+        "data"
       ],
       "key_types": [
         "string"
