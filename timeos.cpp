@@ -9,16 +9,17 @@
 
 namespace CONTRACT_NAME {
 
-void store_key_val(uint64_t scope, uint64_t table, const key_val& keyval) {
-  eosio::print("Inserting key_val:\n");
-  eosio::dump(keyval);
-  bytes key = eosio::raw::pack(keyval.key);
-  bytes val = eosio::raw::pack(keyval.value);
-  eosio::print("keylen: ", key.len, "val.len: ", val.len, "\n");
-  //::store_str(scope, table, (char*)key.data, key.len, (char*)val.data, val.len);
-  ::store_str(scope, table, (char*)keyval.key.get_data(), keyval.key.get_size(), (char*)val.data, val.len);
+  void store_timestamp(uint64_t scope, uint64_t table, const timestamp& ts) {
+    bytes date = eosio::raw::pack(ts.date);
+    ::store_str(scope, table, (char*)ts.data.get_data(), ts.data.get_size(), (char*)date.data, date.len);
+  }
 
-}
+  void create_timestamp(const timestamp_order& order) {
+    //TODO: Should updating same data with newer date be allowed?
+    eosio::require_auth(order.owner);
+    timestamp ts = timestamp(order);
+    store_timestamp(order.owner, N(timestamp), ts);
+  }
 }
 
 using namespace CONTRACT_NAME;
@@ -28,21 +29,18 @@ using namespace CONTRACT_NAME;
  */
 extern "C" {
 
-/**
-     *  This method is called once when the contract is published or updated.
-     */
-void init()  {
-    eosio::print( "Init World!\n" );
-}
+  /**
+  *  This method is called once when the contract is published or updated.
+  */
+  void init()  {
+  }
 
-/// The apply method implements the dispatch of events to this contract
-void apply( uint64_t code, uint64_t action ) {
+  /// The apply method implements the dispatch of events to this contract
+  void apply( uint64_t code, uint64_t action ) {
     if (code == CONTRACT_NAME_UINT64) {
-        eosio::print("code is contract name");
-        if (action == N(savekeyval)) {
-            key_val kv = eosio::current_message<key_val>();
-            store_key_val(CONTRACT_NAME_UINT64, N(keyval), kv);
-        }
-    }
-}
+        if (action == N(newtimestamp)) {
+            create_timestamp(eosio::current_message<timestamp_order>());
+          }
+      }
+  }
 } // extern "C"

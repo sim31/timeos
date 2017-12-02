@@ -1,21 +1,28 @@
 {
   "types": [],
   "structs": [{
-      "name": "key_val",
+      "name": "timestamp_order",
+      "base": "",
+      "fields": {
+        "data": "string",
+        "owner": "account_name"
+      }
+    },{
+      "name": "timestamp",
       "base": "",
       "fields": {
         "key": "string",
-        "value": "string"
+        "value": "time"
       }
     }
   ],
   "actions": [{
-      "action_name": "savekeyval",
-      "type": "key_val"
+      "action_name": "newtimestamp",
+      "type": "timestamp_order"
     }
   ],
   "tables": [{
-      "table_name": "keyval",
+      "table_name": "timestamp",
       "index_type": "str",
       "key_names": [
         "key"
@@ -23,7 +30,7 @@
       "key_types": [
         "string"
       ],
-      "type": "key_val"
+      "type": "timestamp"
     }
   ]
 }
