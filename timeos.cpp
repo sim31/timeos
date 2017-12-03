@@ -4,8 +4,6 @@
  */
 #include <timeos.hpp>
 #include <timeos.gen.hpp>
-#include <eoslib/db.hpp>
-#include <eoslib/string.hpp>
 
 namespace CONTRACT_NAME {
 
