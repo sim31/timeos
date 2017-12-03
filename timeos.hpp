@@ -8,7 +8,7 @@
 
 namespace CONTRACT_NAME {
 
-  //@abi action newtimestamp
+  //@abi action createts removets
   struct timestamp_order {
     eosio::string data;
     account_name  owner;

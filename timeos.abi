@@ -17,7 +17,10 @@
     }
   ],
   "actions": [{
-      "action_name": "newtimestamp",
+      "action_name": "createts",
+      "type": "timestamp_order"
+    },{
+      "action_name": "removets",
       "type": "timestamp_order"
     }
   ],
