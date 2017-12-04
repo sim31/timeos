@@ -49,13 +49,13 @@ extern "C" {
   /// The apply method implements the dispatch of events to this contract
   void apply( uint64_t code, uint64_t action ) {
     if (code == CONTRACT_NAME_UINT64) {
-        if (action == N(createts)) {
-            create_timestamp(eosio::current_message<timestamp_order>());
-          }
-        else if (action == N(removets)) {
-            //FIXME: Should removing timestamp be allowed?
-            remove_timestamp(eosio::current_message<timestamp_order>());
-          }
+      if (action == N(createts)) {
+        create_timestamp(eosio::current_message<timestamp_order>());
       }
+      else if (action == N(removets)) {
+        //FIXME: Should removing timestamp be allowed?
+        remove_timestamp(eosio::current_message<timestamp_order>());
+      }
+    }
   }
 } // extern "C"
