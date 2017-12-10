@@ -12,13 +12,6 @@ namespace CONTRACT_NAME {
     ::store_str(scope, table, (char*)ts.data.get_data(), ts.data.get_size(), (char*)date.data, date.len);
   }
 
-  bool is_timestamped(const timestamp_order& order) {
-    time t;
-    auto r = load_str(order.owner, CONTRACT_NAME_UINT64, N(timestamp),
-             (char*)order.data.get_data(), order.data.get_size(), (char*)&t, sizeof (t));
-    return r > -1;
-  }
-
   void create_timestamp(const timestamp_order& order) {
     eosio::require_auth(order.owner);
     assert(!is_timestamped(order), "Data is already timestamped");
