@@ -1,39 +1,39 @@
 {
-  "types": [],
+  "types": [{
+      "new_type_name": "account_name",
+      "type": "name"
+    }
+  ],
   "structs": [{
-      "name": "timestamp_order",
+      "name": "transfer",
       "base": "",
-      "fields": {
-        "data": "string",
-        "owner": "account_name"
-      }
+      "fields": [
+        {"name":"from", "type":"account_name"},
+        {"name":"to", "type":"account_name"},
+        {"name":"amount", "type":"uint64"}
+      ]
     },{
-      "name": "timestamp",
+      "name": "account",
       "base": "",
-      "fields": {
-        "data": "string",
-        "date": "time"
-      }
+      "fields": [
+        {"name":"account", "type":"name"},
+        {"name":"balance", "type":"uint64"}
+      ]
     }
   ],
   "actions": [{
-      "action_name": "createts",
-      "type": "timestamp_order"
-    },{
-      "action_name": "removets",
-      "type": "timestamp_order"
+      "name": "transfer",
+      "type": "transfer",
+      "ricardian_contract": ""
     }
   ],
   "tables": [{
-      "table_name": "timestamp",
-      "index_type": "str",
-      "key_names": [
-        "data"
-      ],
-      "key_types": [
-        "string"
-      ],
-      "type": "timestamp"
+      "name": "account",
+      "type": "account",
+      "index_type": "i64",
+      "key_names" : ["account"],
+      "key_types" : ["name"]
     }
-  ]
+  ],
+  "ricardian_clauses": []
 }
