@@ -24,7 +24,11 @@ namespace timeos {
    }
 
    void timeos::removets(const account_name owner, const uint64_t pkey) {
-
+      eosio::require_auth(owner);
+      timestamps ts_table(get_self(), owner);
+      const timestamp& ts = ts_table.get(pkey);
+      ts_table.erase(ts);
+//      eosio::print("Timestamp with data: ", ts.data, " erased");
    }
 
    EOSIO_ABI( timeos, (createts)(removets)(getts) )
