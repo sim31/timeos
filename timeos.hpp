@@ -1,20 +1,23 @@
-/**
- *  @file
- *  @copyright defined in eos/LICENSE.txt
- */
 #include <eosiolib/eosio.hpp>
 
 namespace timeos {
 
-   class timeos : eosio::contract {
+   class timeos : public eosio::contract {
       public:
          timeos(account_name contract_name) : eosio::contract(contract_name) {}
 
-         //@abi action createts
-         void create_timestamp(account_name owner, const std::string& data) {
+         //@abi action
+         void createts(const account_name owner, const std::string& data) {
             //TODO:
+            eosio::print("Hello");
+         }
+
+         //@abi action
+         void removets(const account_name owner, const uint64_t pkey) {
+            eosio::print("Hello");
 
          }
+
 
          //@abi table timestamp i64
          struct timestamp {

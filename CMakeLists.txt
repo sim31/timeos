@@ -67,9 +67,8 @@ add_custom_command(OUTPUT ${CONTRACT_WAST_FILE}
 
 add_custom_target(abi ALL
         DEPENDS ${CONTRACT_ABI_FILE})
-#FIXME: main .cpp file includes currency.hpp which has contract abi, which should be generated here
 add_custom_command(OUTPUT ${CONTRACT_ABI_FILE}
         COMMAND ${EOSIOCPP_PATH}
         -g ${CONTRACT_ABI_FILE}
-        ${HPP_FILES}
-        DEPENDS ${HPP_FILES})
+        ${CPP_FILES}
+        DEPENDS ${CPP_FILES} ${HPP_FILES})
