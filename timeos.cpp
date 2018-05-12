@@ -17,10 +17,9 @@ namespace timeos {
    void timeos::getts(account_name owner) {
       timestamps ts_table(get_self(), owner);
       auto index = ts_table.get_index<N(reverse)>();
-      eosio::print(index.begin()->data.c_str());
-//      for (auto it = index.begin(); it != index.end(); it++) {
-//         eosio::print(it->time);
-//      }
+      for (auto it = index.begin(); it != index.end(); it++) {
+         eosio::print(it->data.c_str(), " ");
+      }
    }
 
    void timeos::removets(const account_name owner, const uint64_t pkey) {
